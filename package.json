@@ -1,0 +1,72 @@
+{
+    "name": "watch-run",
+    "displayName": "watch-run",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "boukichi",
+    "engines": {
+        "vscode": "^1.20.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BouKiCHi/vscode-watch-run.git"
+    },
+    "license": "MIT",
+    "main": "./out/extension",
+    "contributes": {
+        "configuration": [
+            {
+                "title": "watch-run configuration / restart is required to apply changes",
+                "properties": {
+                    "watch-run.targetList": {
+                        "type": "array",
+                        "default": [
+                            {}
+                        ],
+                        "description": "array of target and task list.",
+                        "items": {
+                            "type": "object",
+                            "title": "task object",
+                            "default": {},
+                            "properties": {
+                                "target": {
+                                    "type": "string",
+                                    "default": "**/*.mml",
+                                    "description": "target files or directories. glob pattern is usable."
+                                },
+                                "task": {
+                                    "type": "string",
+                                    "default": "compileMml",
+                                    "description": "run the label of task when target is changed."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "tslint": "^5.8.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "chokidar": "^2.0.2"
+    }
+}
