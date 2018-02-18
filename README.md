@@ -29,5 +29,8 @@ Monitor files and directories and execute tasks when changed.
 
 ## Release Notes
 
+### 0.0.2
+Added description.
+
 ### 0.0.1
 Initial release.
