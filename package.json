@@ -2,10 +2,10 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "Monitor files and directories and execute tasks when changed",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "publisher": "boukichi",
     "engines": {
-        "vscode": "^1.20.0"
+        "vscode": "^1.24.0"
     },
     "categories": [
         "Other"
@@ -67,6 +67,6 @@
         "@types/mocha": "^2.2.42"
     },
     "dependencies": {
-        "chokidar": "^2.0.2"
+        "chokidar": "^2.0.3"
     }
 }
