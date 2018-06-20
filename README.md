@@ -14,14 +14,15 @@ Monitor any files or directories and execute tasks when that is changed.
 
 ```
 {
+    // reload window is required to apply.
     "watch-run.targetList": [
         {
-            "target": "**/*.mml",
-            "task": "compileMml"
+            "target": "**/*.js",
+            "task": "echo_js"
         },
         {
-            "target": "**/*.h",
-            "task": "compileHeader"
+            "target": "index.html",
+            "task": "open_index_html"
         }
     ]
 }
@@ -29,40 +30,36 @@ Monitor any files or directories and execute tasks when that is changed.
 
 * `(project root)/.vscode/tasks.json` : Write tasks here. usually generated from Configure Tasks menu.  
 ```
-
 {
-    // tasks.json for mml compiler
-    // ./run68/run68.exe
-    // ./note/note.x
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "compileMml",
+            "label": "echo_js",
             "type": "shell",
-            // Rewrite as necessary
-            "command": "cmd /c ${workspaceRoot}\\batch\\play.bat ${workspaceRoot} ${file}",
-            // "command": "cmd /c ${workspaceRoot}\\run68\\run68.exe ${workspaceRoot}\\note\\note.x ${file} > compile.log ; type compile.log",
-            "problemMatcher": {
-                "owner": "mml extension",
-                "fileLocation": "absolute",
-                "pattern": {
-                    "regexp": "^(.*)\\s+(\\d+):\\s+(.*)$",
-                    "severity": 0,
-                    "file": 1,
-                    "line": 2,
-                    "message": 3,
-                    "column": 0
-                }
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "command": "echo \"js is edited\""
+        } ,
+        {
+            "label": "open_index_html",
+            "type": "shell",
+            "command": "start index.html"
         }
     ]
 }
 ```
+
+* edit somewhere_dir/something.js
+ executes the task labeled "echo_js".
+
+* edit (workspace_root)/index.html
+ executes the task labeled "open_index_html" and finally open index.html in browser.(in Windows)  
+
+
 ## Release Notes
+
+### 0.2.2
+Fixed a bug of ignoring directory/file which starts with dot.
 
 ### 0.2.1
 Added Example.

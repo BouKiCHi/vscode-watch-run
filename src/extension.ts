@@ -24,11 +24,11 @@ export function activate(context: vscode.ExtensionContext) {
     for(var i=0; i < targetList.length; i++) {
         function taskFunction(target:string,task:string) {
             chokidar.watch(target, {
-                cwd: rootPath,
-                ignored: /(^|[\/\\])\../
+                cwd: rootPath
             }).on('change', (filename:string, stats:object) => {
                 // let targetFile = path.join(rootPath ? rootPath : "",filename);
                 // console.log("File:" + targetFile + " Task:" + task);
+                // console.log("filename:" + filename);
                 vscode.commands.executeCommand("workbench.action.tasks.runTask",task);
           });
         }
