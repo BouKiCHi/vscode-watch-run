@@ -2,7 +2,7 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "Monitor files and directories and execute tasks when changed",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.24.0"
