@@ -58,6 +58,10 @@ Monitor any files or directories and execute tasks when that is changed.
 
 ## Release Notes
 
+### 0.2.5
+Added multi-root support.
+Added internal command support.
+
 ### 0.2.2
 Fixed a bug of ignoring directory/file which starts with dot.
 
