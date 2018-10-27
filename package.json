@@ -7,6 +7,9 @@
     "engines": {
         "vscode": "^1.24.0"
     },
+    "keywords": [
+        "multi-root ready"
+    ],
     "categories": [
         "Other"
     ],
@@ -29,21 +32,26 @@
                         "default": [
                             {}
                         ],
-                        "description": "array of target and task list.",
+                        "description": "Array of Target and Task.",
                         "items": {
                             "type": "object",
-                            "title": "task object",
+                            "title": "Task",
                             "default": {},
                             "properties": {
                                 "target": {
                                     "type": "string",
-                                    "default": "**/*.mml",
-                                    "description": "target files or directories. glob pattern is usable."
+                                    "default": "**/*.txt",
+                                    "description": "Target files or directories. glob pattern available."
                                 },
                                 "task": {
                                     "type": "string",
-                                    "default": "compileMml",
-                                    "description": "run the label of task when target is changed."
+                                    "default": "echo",
+                                    "description": "Run the Label of Task when Target is changed."
+                                },
+                                "command": {
+                                    "type": "string",
+                                    "default": "",
+                                    "description": "Run the command of vscode internal."
                                 }
                             }
                         }
