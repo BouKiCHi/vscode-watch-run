@@ -58,6 +58,9 @@ Monitor any files or directories and execute tasks when that is changed.
 
 ## Release Notes
 
+### 0.3.0
+Changed watch library to node-watch.
+
 ### 0.2.5
 Added multi-root support.
 Added internal command support.

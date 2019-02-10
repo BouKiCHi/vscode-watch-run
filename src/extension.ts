@@ -1,62 +1,75 @@
 'use strict';
 import * as vscode from 'vscode';
-// import * as path from 'path';
 
-export function activate(context: vscode.ExtensionContext) {
-    // console.log("Activating...");
-    var chokidar = require('chokidar');
+class Watcher {
+    private watch: any;
+    private targetList: any;
+    private glob: any;
 
-    let config = vscode.workspace.getConfiguration('watch-run');
-    if (!config) {
-        return;
+    constructor() {
+        this.watch = require('node-watch');
+        this.glob = require('glob-to-regexp');
+    } 
+
+    public setConfig(config:any) : boolean {
+        this.targetList = config.get('targetList');
+
+        if (!this.targetList || this.targetList.length === 0) { return false; }
+        return true;
+    }
+    
+    public addWatchTarget(workspace: string, target:string, task:string, command: string) {
+        var re = this.glob(target, { globstar: true });
+        // console.log("Watching..:" + workspace);
+
+        this.watch(workspace, {
+            recursive: true
+        }, function(evt:any, name:any) {
+            if (!re.test(name)) { return; }
+
+            // console.log("Pattern Matched!: " + name);
+
+            if (task === undefined) {
+                if (!command) { return; }
+                vscode.commands.executeCommand(command);
+            }
+            vscode.commands.executeCommand("workbench.action.tasks.runTask",task);
+        });
     }
 
-    const folders = vscode.workspace.workspaceFolders;
-    if (typeof folders === 'undefined') {
-        return;
-    }
+    public setWorkspace(workspacePath:string) {
+        var tl = this.targetList;
 
-    let targetList = config['targetList'];
-    if (!targetList || targetList.length === 0) {
-        return;
-    }
-
-    function setWorkspace(workspacePath:string) {
-        // console.log("Adding:" + workspacePath);
-
-        function addWatchTarget(target:string, task:string , command: string) {
-            chokidar.watch(target, {
-                cwd: workspacePath
-            }).on('change', (filename:string, stats:object) => {
-                // let targetFile = path.join(rootPath ? rootPath : "",filename);
-                // console.log("File:" + targetFile + " Task:" + task);
-                // console.log("filename:" + filename);
-                if (task === undefined) {
-                    vscode.commands.executeCommand(command);
-                }
-                vscode.commands.executeCommand("workbench.action.tasks.runTask",task);
-            });
-        }
-
-        for(var i=0; i < targetList.length; i++) {
-            let target = targetList[i]['target'];
-            let task = targetList[i]['task'];
-            let command = targetList[i]['command'];
+        for(let i=0; i < tl.length; i++) {
+            let t = tl[i];
+            let target = t['target'];
+            let task = t['task'];
+            let command = t['command'];
             
             if (target === undefined) { continue; }
-            addWatchTarget(target,task,command);
+            this.addWatchTarget(workspacePath, target, task, command);
         }
     }
+}
+
+
+export function activate(context: vscode.ExtensionContext) {
+
+    let config = vscode.workspace.getConfiguration('watch-run');
+    if (!config) { return; }
+
+    const folders = vscode.workspace.workspaceFolders;
+    if (typeof folders === 'undefined') { return; }
+
+    var w = new Watcher();
+
+    if (!w.setConfig(config)) { return; }
 
     // important!
     // vscode.workspace.rootPath(in windows) format is : 'c:\folder\folder'
-    // 
-    // let rootPath = vscode.workspace.rootPath || "";
-    // setWorkspace(rootPath);
-
 
     for(var i=0; i < folders.length; i++) {
-        setWorkspace(folders[i].uri.fsPath);
+        w.setWorkspace(folders[i].uri.fsPath);
     }
 }
 
