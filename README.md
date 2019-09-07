@@ -2,31 +2,36 @@
 
 ## Features
 
-Monitor any files or directories and execute tasks when that is changed. 
+This extension will watch specified file and execute the task when that is changed. 
 
 ![save and run](images/image01.gif)
 
 ## Extension Settings Example
 
-**Note:** Reload window when settings.json are changed.
+**Note:** If you change settings.json, call "Apply settings" from the menu.
 
 * `(project root)/.vscode/settings.json` : list of target items.
 
 ```
 {
-    // reload window is required to apply.
+    // If you change settings.json, call "Apply settings" from the menu.
     "watch-run.targetList": [
         {
             "target": "**/*.js",
-            "task": "echo_js"
+            "task": "run_js"
         },
         {
-            "target": "index.html",
+            "target": "/index.html",
             "task": "open_index_html"
+        },
+        {
+            "regexp": "index-\\d+.html",
+            "task": "open_index_number_html"
         }
     ]
 }
 ```
+## tasks.json settings example
 
 * `(project root)/.vscode/tasks.json` : Write tasks here. usually generated from Configure Tasks menu.  
 ```
@@ -36,27 +41,41 @@ Monitor any files or directories and execute tasks when that is changed.
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo_js",
+            "label": "run_js",
             "type": "shell",
-            "command": "echo \"js is edited\""
-        } ,
+            "command": "node ${file}"
+        },
         {
             "label": "open_index_html",
             "type": "shell",
-            "command": "start index.html"
+            "command": "start ${file}"
+        },
+        {
+            "label": "open_index_number_html",
+            "type": "shell",
+            "command": "start ${file}"
         }
     ]
 }
 ```
 
+## How work this example?
+
 * edit somewhere_dir/something.js
- executes the task labeled "echo_js".
+ executes JavaScript on node command in the task labeled "run_js".
 
 * edit (workspace_root)/index.html
- executes the task labeled "open_index_html" and finally open index.html in browser.(in Windows)  
+ executes the task labeled "open_index_html" to open index.html in browser.(in Windows)
 
+* edit somewhere_dir/index-1234.html
+  open index-{number}.html in browser (Windows)
 
 ## Release Notes
+
+### 0.4.0
+Added Apply Setting to Menu.
+Added RegExp field to Setting.
+Fixed that glob pattern doesn't work properly.
 
 ### 0.3.0
 Changed watch library to node-watch.

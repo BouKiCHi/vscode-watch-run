@@ -2,7 +2,7 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "Monitor files and directories and execute tasks when changed",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.24.0"
@@ -23,9 +23,15 @@
     "license": "MIT",
     "main": "./out/extension",
     "contributes": {
+        "commands": [
+            {
+                "command": "watch-run.applySettings",
+                "title": "watch-run: Apply Settings"
+            }
+        ],
         "configuration": [
             {
-                "title": "watch-run configuration / restart is required to apply changes",
+                "title": "watch-run configuration",
                 "properties": {
                     "watch-run.targetList": {
                         "type": "array",
@@ -38,17 +44,17 @@
                                 "target": {
                                     "type": "string",
                                     "default": "**/*.txt",
-                                    "description": "Target files or directories. glob pattern available."
+                                    "description": "Pattern to find a file or directory. glob pattern available."
                                 },
                                 "task": {
                                     "type": "string",
                                     "default": "echo",
                                     "description": "Run the Label of Task when Target is changed."
                                 },
-                                "command": {
+                                "regexp": {
                                     "type": "string",
-                                    "default": "",
-                                    "description": "Run the command of vscode internal."
+                                    "default": ".*",
+                                    "description": "regular expression to find a file or directory."
                                 }
                             }
                         }
@@ -66,14 +72,14 @@
     },
     "devDependencies": {
         "@types/mocha": "^5.2.7",
-        "@types/node": "^10.14.9",
-        "tslint": "^5.17.0",
-        "typescript": "^3.5.2",
-        "vscode": "^1.1.34"
+        "@types/node": "^12.7.4",
+        "tslint": "^5.19.0",
+        "typescript": "^3.6.2",
+        "vscode": "^1.1.36"
     },
     "dependencies": {
         "glob-to-regexp": "^0.4.1",
         "mkdirp": "^0.5.1",
-        "node-watch": "^0.6.2"
+        "node-watch": "^0.6.3"
     }
 }
