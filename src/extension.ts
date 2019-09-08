@@ -35,16 +35,18 @@ class Watcher {
 
     public setWorkspace(workspacePath: string) {
         var THIS = this;
+        var workspaceUri = vscode.Uri.file(workspacePath);
+        var wsUriLength = workspaceUri.path.length;
+
         this.watcher = this.watch(workspacePath, { recursive: true }, function (evt: any, name: any) {
             // console.log("Filename Pattern:" + name);
-            var workspaceUri = vscode.Uri.file(workspacePath);
             var uri = vscode.Uri.file(name);
             var tl = THIS.targetList;
             var rel = THIS.regexpList;
             for (var i = 0; i < tl.length; i++) {
                 var to = tl[i];
                 var re = rel[i];
-                var leafPath = uri.path.substring(workspaceUri.path.length);
+                var leafPath = uri.path.substring(wsUriLength);
                 if (!re.test(leafPath)) { continue; }
                 var task = to['task'];
                 vscode.commands.executeCommand("workbench.action.tasks.runTask", task);
@@ -63,7 +65,7 @@ class Watcher {
 
 export function activate(context: vscode.ExtensionContext) {
     var w = new Watcher();
-    function StartWatch() {
+    function startWatch() {
         // Get Config
         let config = vscode.workspace.getConfiguration('watch-run');
         if (!config) { return; }
@@ -80,13 +82,13 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    StartWatch();
+    startWatch();
 
     // apply 
     let disposable = vscode.commands.registerCommand('watch-run.applySettings', () => {
         vscode.window.showInformationMessage('watch-run: Apply Settings!');
         w.closeWatch();
-        StartWatch();
+        startWatch();
     });
 
     context.subscriptions.push(disposable);

@@ -2,7 +2,7 @@
 
 ## Features
 
-This extension will watch specified file and execute the task when that is changed. 
+This extension will watch specified file and run the task when that is changed. 
 
 ![save and run](images/image01.gif)
 
@@ -17,16 +17,20 @@ This extension will watch specified file and execute the task when that is chang
     // If you change settings.json, call "Apply settings" from the menu.
     "watch-run.targetList": [
         {
-            "target": "**/*.js",
-            "task": "run_js"
+            "target": "**/*.txt",
+            "task": "show_filename"
         },
         {
             "target": "/index.html",
-            "task": "open_index_html"
+            "task": "show_html"
+        },
+        {
+            "target": "/js/*.js",
+            "task": "run_js"
         },
         {
             "regexp": "index-\\d+.html",
-            "task": "open_index_number_html"
+            "task": "show_index_number_html"
         }
     ]
 }
@@ -41,17 +45,22 @@ This extension will watch specified file and execute the task when that is chang
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "show_html",
+            "type": "shell",
+            "command": "start ${file}"
+        },
+        {
+            "label": "show_filename",
+            "type": "shell",
+            "command": "echo \"File:${file}\""
+        },
+        {
             "label": "run_js",
             "type": "shell",
             "command": "node ${file}"
         },
         {
-            "label": "open_index_html",
-            "type": "shell",
-            "command": "start ${file}"
-        },
-        {
-            "label": "open_index_number_html",
+            "label": "show_index_number_html",
             "type": "shell",
             "command": "start ${file}"
         }
@@ -61,40 +70,48 @@ This extension will watch specified file and execute the task when that is chang
 
 ## How work this example?
 
-* edit somewhere_dir/something.js
- executes JavaScript on node command in the task labeled "run_js".
+* edit somewhere_dir/something.txt
+ show filename in console from the task labeled "show_filename".
+
+* edit (workspace_root)/js/something.js
+ run JavaScript on node command in the task labeled "run_js".
 
 * edit (workspace_root)/index.html
- executes the task labeled "open_index_html" to open index.html in browser.(in Windows)
+ run the task labeled "show_filename" to open index.html in browser.(in Windows)
 
 * edit somewhere_dir/index-1234.html
-  open index-{number}.html in browser (Windows)
+* edit somewhere_dir/index-256.html
+ open index-{number}.html in browser (in Windows)
 
 ## Release Notes
 
-### 0.4.0
-Added Apply Setting to Menu.
-Added RegExp field to Setting.
-Fixed that glob pattern doesn't work properly.
+### 0.4.1
+* Improved activation events.
+* Removed unnecessary file.
 
+### 0.4.0
+* Added "Apply Setting" to Menu.
+* Added "regexp" field to Setting.
+* Fixed that glob pattern doesn't work properly.
+ 
 ### 0.3.0
-Changed watch library to node-watch.
+* Changed watch library to node-watch.
 
 ### 0.2.5
-Added multi-root support.
-Added internal command support.
+* Added multi-root support.
+* Added internal command support.
 
 ### 0.2.2
-Fixed a bug of ignoring directory/file which starts with dot.
+* Fixed a bug of ignoring directory/file which starts with dot.
 
 ### 0.2.1
-Added Example.
+* Added Example.
 
 ### 0.2.0
-Updated package.
+* Updated package.
 
 ### 0.0.2
-Added description.
+* Added description.
 
 ### 0.0.1
-Initial release.
+* Initial release.

@@ -1,8 +1,8 @@
 {
     "name": "watch-run",
     "displayName": "watch-run",
-    "description": "Monitor files and directories and execute tasks when changed",
-    "version": "0.4.0",
+    "description": "This extension monitors files in workspace and run a task when a file is changed",
+    "version": "0.4.1",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.24.0"
@@ -14,7 +14,8 @@
         "Other"
     ],
     "activationEvents": [
-        "*"
+        "onCommand:watch-run.applySettings",
+        "workspaceContains:.vscode/settings.json"
     ],
     "repository": {
         "type": "git",
@@ -31,24 +32,33 @@
         ],
         "configuration": [
             {
-                "title": "watch-run configuration",
+                "title": "watch-run",
                 "properties": {
                     "watch-run.targetList": {
                         "type": "array",
                         "description": "Array of Target and Task.",
+                        "default": [
+                            {
+                                "target": "**/*.html",
+                                "task": "show_html"
+                            }
+                        ],
                         "items": {
                             "type": "object",
                             "title": "Task",
-                            "default": {},
+                            "default": {
+                                "target": "**/*.html",
+                                "task": "show_html"
+                            },
                             "properties": {
                                 "target": {
                                     "type": "string",
-                                    "default": "**/*.txt",
+                                    "default": "**/*.html",
                                     "description": "Pattern to find a file or directory. glob pattern available."
                                 },
                                 "task": {
                                     "type": "string",
-                                    "default": "echo",
+                                    "default": "show_html",
                                     "description": "Run the Label of Task when Target is changed."
                                 },
                                 "regexp": {
