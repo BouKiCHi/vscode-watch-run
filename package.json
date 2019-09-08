@@ -2,7 +2,7 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "This extension monitors files in workspace and run a task when a file is changed",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.24.0"
@@ -27,7 +27,8 @@
         "commands": [
             {
                 "command": "watch-run.applySettings",
-                "title": "watch-run: Apply Settings"
+                "title": "Apply Settings",
+                "category": "watch-run"
             }
         ],
         "configuration": [
