@@ -91,7 +91,7 @@ This extension will watch specified file and run the task when that is changed.
 * edit somewhere_dir/index-256.html
  open index-{number}.html in browser (in Windows)
 
-## How to get path of changed file
+## How to get part of changed file
 
 1. define in "inputs" section like the following.
 ```
@@ -104,12 +104,30 @@ This extension will watch specified file and run the task when that is changed.
         }
     ]
 ```
+
 * the "args" is the same as the label of task.
 
 2. use ${input:inputId} in command of task to get the path.
 
+
+### Command example
+path : c:\\work\\temp\\file.ext
+
+| Command                     | Value                    |
+| --------------------------- | ------------------------ |
+| getFilename                 | c:\\work\\temp\\file.ext |
+| getDirname                  | c:\\work\\temp           |
+| getBasename                 | file.ext                 |
+| getExtname                  | .ext                     |
+| getFilenameWithoutExtension | file                     |
+
+
+
 ## Release Notes
-### 0.4.2
+### 0.5.1
+* Added some command to get a part of the path.
+
+### 0.5.0
 * Added the way to get the path of changed file for the task.
 
 ### 0.4.1

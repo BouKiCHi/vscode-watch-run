@@ -1,5 +1,6 @@
 'use strict';
 import * as vscode from 'vscode';
+const path = require('path');
 
 class Watcher {
 
@@ -63,6 +64,27 @@ class Watcher {
         return this.taskToFile[taskId];
     }
 
+    public getDirname(taskId : string): string | undefined {
+        if (!taskId || !(taskId in this.taskToFile)) { return undefined; }
+        return path.dirname(this.taskToFile[taskId]);
+    }
+
+    public getBasename(taskId : string): string | undefined {
+        if (!taskId || !(taskId in this.taskToFile)) { return undefined; }
+        return path.basename(this.taskToFile[taskId]);
+    }
+
+    public getExtname(taskId : string): string | undefined {
+        if (!taskId || !(taskId in this.taskToFile)) { return undefined; }
+        return path.extname(this.taskToFile[taskId]);
+    }
+
+    public getFilenameWithoutExtension(taskId : string): string | undefined {
+        if (!taskId || !(taskId in this.taskToFile)) { return undefined; }
+        var data = path.parse(this.taskToFile[taskId]);
+        return data.name;
+    }
+
     public closeWatch() {
         if (this.watcher && !this.watcher.isClosed()) {
             this.watcher.close();
@@ -94,20 +116,37 @@ export function activate(context: vscode.ExtensionContext) {
     startWatch();
 
     // apply 
-    let disposable = vscode.commands.registerCommand('watch-run.applySettings', () => {
+    context.subscriptions.push(vscode.commands.registerCommand('watch-run.applySettings', () => {
         vscode.window.showInformationMessage('watch-run: Apply Settings!');
         w.closeWatch();
         startWatch();
-    });
+    }));
 
-    context.subscriptions.push(disposable);
-
-    // get 
-    disposable = vscode.commands.registerCommand('watch-run.getFilename', (taskId) => {
+    // getFilename
+    context.subscriptions.push(vscode.commands.registerCommand('watch-run.getFilename', (taskId) => {
         return w.getFilename(taskId);
-    });
+    }));
 
-    context.subscriptions.push(disposable);
+    // getBasename
+    context.subscriptions.push(vscode.commands.registerCommand('watch-run.getBasename', (taskId) => {
+        return w.getBasename(taskId);
+    }));
+
+    // getDirname
+    context.subscriptions.push(vscode.commands.registerCommand('watch-run.getDirname', (taskId) => {
+        return w.getDirname(taskId);
+    }));
+
+    // getExtname
+    context.subscriptions.push(vscode.commands.registerCommand('watch-run.getExtname', (taskId) => {
+        return w.getExtname(taskId);
+    }));
+
+    // getFilenameWithoutExtension
+    context.subscriptions.push(vscode.commands.registerCommand('watch-run.getFilenameWithoutExtension', (taskId) => {
+        return w.getFilenameWithoutExtension(taskId);
+    }));
+
 }
 
 export function deactivate() {
