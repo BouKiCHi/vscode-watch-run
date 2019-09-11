@@ -115,7 +115,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     startWatch();
 
-    // apply 
+    // applySettings 
     context.subscriptions.push(vscode.commands.registerCommand('watch-run.applySettings', () => {
         vscode.window.showInformationMessage('watch-run: Apply Settings!');
         w.closeWatch();
