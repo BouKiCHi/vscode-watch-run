@@ -57,12 +57,20 @@ This extension will watch specified file and run the task when that is changed.
         {
             "label": "run_js",
             "type": "shell",
-            "command": "node ${file}"
+            "command": "node ${input:run_js_file}"
         },
         {
             "label": "show_index_number_html",
             "type": "shell",
             "command": "start ${file}"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "run_js_file",
+            "type": "command",
+            "command": "watch-run.getFilename",
+            "args" : "run_js"
         }
     ]
 }
@@ -83,7 +91,26 @@ This extension will watch specified file and run the task when that is changed.
 * edit somewhere_dir/index-256.html
  open index-{number}.html in browser (in Windows)
 
+## How to get path of changed file
+
+1. define in "inputs" section like the following.
+```
+    "inputs": [
+        {
+            "id": "inputId",
+            "type": "command",
+            "command": "watch-run.getFilename",
+            "args" : "run_js"
+        }
+    ]
+```
+* the "args" is the same as the label of task.
+
+2. use ${input:inputId} in command of task to get the path.
+
 ## Release Notes
+### 0.4.2
+* Added the way to get the path of changed file for the task.
 
 ### 0.4.1
 * Improved activation events.

@@ -2,16 +2,19 @@
 import * as vscode from 'vscode';
 
 class Watcher {
+
     private watch: any;
     private watcher: any;
     private targetList: any;
     private glob: any;
     private regexpList: any;
 
+    private taskToFile: any;
 
     constructor() {
         this.watch = require('node-watch');
         this.glob = require('glob-to-regexp');
+        this.taskToFile = {};
     }
 
     public setConfig(config: any): boolean {
@@ -49,9 +52,15 @@ class Watcher {
                 var leafPath = uri.path.substring(wsUriLength);
                 if (!re.test(leafPath)) { continue; }
                 var task = to['task'];
+                THIS.taskToFile[task] = name;
                 vscode.commands.executeCommand("workbench.action.tasks.runTask", task);
             }
         });
+    }
+
+    public getFilename(taskId : string): string | undefined {
+        if (!taskId || !(taskId in this.taskToFile)) { return undefined; }
+        return this.taskToFile[taskId];
     }
 
     public closeWatch() {
@@ -89,6 +98,13 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage('watch-run: Apply Settings!');
         w.closeWatch();
         startWatch();
+    });
+
+    context.subscriptions.push(disposable);
+
+    // get 
+    disposable = vscode.commands.registerCommand('watch-run.getFilename', (taskId) => {
+        return w.getFilename(taskId);
     });
 
     context.subscriptions.push(disposable);

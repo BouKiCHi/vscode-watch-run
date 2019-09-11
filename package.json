@@ -14,6 +14,7 @@
         "Other"
     ],
     "activationEvents": [
+        "onCommand:watch-run.getFilename",
         "onCommand:watch-run.applySettings",
         "workspaceContains:.vscode/settings.json"
     ],
