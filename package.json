@@ -2,7 +2,7 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "This extension monitors files in workspace and run a task when a file is changed",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.24.0"
