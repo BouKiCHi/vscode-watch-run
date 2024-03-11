@@ -2,10 +2,10 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "This extension monitors files in workspace and run a task when a file is changed",
-    "version": "0.5.2",
+    "version": "0.6.0",
     "publisher": "boukichi",
     "engines": {
-        "vscode": "^1.24.0"
+        "vscode": "^1.87.0"
     },
     "keywords": [
         "multi-root ready"
@@ -15,7 +15,6 @@
     ],
     "activationEvents": [
         "onCommand:watch-run.getFilename",
-        "onCommand:watch-run.applySettings",
         "workspaceContains:.vscode/settings.json"
     ],
     "repository": {
@@ -79,15 +78,20 @@
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "vscode-test"
     },
     "devDependencies": {
-        "@types/mocha": "^7.0.2",
-        "@types/node": "^13.13.2",
-        "tslint": "^6.1.1",
-        "typescript": "^3.8.3",
-        "vscode": "^1.1.37"
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^18.19.22",
+        "@types/vscode": "^1.87.0",
+        "@typescript-eslint/eslint-plugin": "^7.0.2",
+        "@typescript-eslint/parser": "^7.0.2",
+        "@vscode/test-cli": "^0.0.6",
+        "@vscode/test-electron": "^2.3.9",
+        "eslint": "^8.56.0",
+        "typescript": "^5.3.3"
     },
     "dependencies": {
         "glob-to-regexp": "^0.4.1",

@@ -1,5 +1,8 @@
 # Change Log
 
+### 0.6.0
+* Updated dependencies.
+
 ### 0.5.1
 * Added some command to get a part of the path.
 
