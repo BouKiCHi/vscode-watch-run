@@ -2,10 +2,10 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "This extension monitors files in workspace and run a task when a file is changed",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "publisher": "boukichi",
     "engines": {
-        "vscode": "^1.87.0"
+        "vscode": "^1.108.1"
     },
     "keywords": [
         "multi-root ready"
@@ -84,14 +84,14 @@
     },
     "devDependencies": {
         "@types/mocha": "^10.0.10",
-        "@types/node": "^22.15.29",
-        "@types/vscode": "^1.100.0",
-        "@typescript-eslint/eslint-plugin": "^8.33.0",
-        "@typescript-eslint/parser": "^8.33.0",
-        "@vscode/test-cli": "^0.0.11",
+        "@types/node": "^25.0.6",
+        "@types/vscode": "^1.108.1",
+        "@typescript-eslint/eslint-plugin": "^8.52.0",
+        "@typescript-eslint/parser": "^8.52.0",
+        "@vscode/test-cli": "^0.0.12",
         "@vscode/test-electron": "^2.5.2",
-        "eslint": "^9.28.0",
-        "typescript": "^5.8.3"
+        "eslint": "^9.39.2",
+        "typescript": "^5.9.3"
     },
     "dependencies": {
         "glob-to-regexp": "^0.4.1",
