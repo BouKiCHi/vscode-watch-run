@@ -86,11 +86,11 @@
         "@types/mocha": "^10.0.10",
         "@types/node": "^25.0.6",
         "@types/vscode": "^1.108.1",
-        "@typescript-eslint/eslint-plugin": "^8.52.0",
-        "@typescript-eslint/parser": "^8.52.0",
-        "@vscode/test-cli": "^0.0.12",
+        "@typescript-eslint/eslint-plugin": "^8.65.0",
+        "@typescript-eslint/parser": "^8.65.0",
+        "@vscode/test-cli": "^0.0.15",
         "@vscode/test-electron": "^2.5.2",
-        "eslint": "^9.39.2",
+        "eslint": "^10.7.0",
         "typescript": "^5.9.3"
     },
     "dependencies": {
