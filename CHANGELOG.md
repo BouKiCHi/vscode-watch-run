@@ -1,5 +1,9 @@
 # Change Log
 
+### 0.6.4
+* Updated ESLint and TypeScript ESLint dependencies.
+* Removed the obsolete TSLint ignore entry.
+
 ### 0.6.2
 * Added Japanese usage documentation.
 * Updated development dependencies and resolved known security vulnerabilities.
