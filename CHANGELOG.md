@@ -1,5 +1,10 @@
 # Change Log
 
+### 0.6.2
+* Added Japanese usage documentation.
+* Updated development dependencies and resolved known security vulnerabilities.
+* Added ESLint 9 configuration.
+
 ### 0.6.0
 * Updated dependencies.
 

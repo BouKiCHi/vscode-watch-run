@@ -13,7 +13,6 @@
     "categories": [
         "Other"
     ],
-
     "activationEvents": [
         "onStartupFinished"
     ],
@@ -88,7 +87,7 @@
         "@types/vscode": "^1.107.0",
         "@typescript-eslint/eslint-plugin": "^8.52.0",
         "@typescript-eslint/parser": "^8.52.0",
-        "@vscode/test-cli": "^0.0.12",
+        "@vscode/test-cli": "^0.0.15",
         "@vscode/test-electron": "^2.5.2",
         "eslint": "^9.39.2",
         "typescript": "^5.9.3"
@@ -97,5 +96,10 @@
         "glob-to-regexp": "^0.4.1",
         "mkdirp": "^3.0.1",
         "node-watch": "^0.7.4"
+    },
+    "overrides": {
+        "diff": "8.0.3",
+        "serialize-javascript": "7.0.5",
+        "js-yaml": "4.3.2"
     }
 }
