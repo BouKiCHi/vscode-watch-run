@@ -2,7 +2,7 @@
     "name": "watch-run",
     "displayName": "watch-run",
     "description": "This extension monitors files in workspace and run a task when a file is changed",
-    "version": "0.6.4",
+    "version": "0.7.0",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.107.0"
@@ -28,8 +28,55 @@
                 "command": "watch-run.applySettings",
                 "title": "Apply Settings",
                 "category": "watch-run"
+            },
+            {
+                "command": "watch-run.runTask",
+                "title": "Run Task",
+                "category": "watch-run",
+                "icon": "$(play)"
+            },
+            {
+                "command": "watch-run.editTask",
+                "title": "Edit Task",
+                "category": "watch-run"
+            },
+            {
+                "command": "watch-run.addTask",
+                "title": "Add Task",
+                "category": "watch-run"
+            },
+            {
+                "command": "watch-run.registerFile",
+                "title": "Register File",
+                "category": "watch-run"
+            },
+            {
+                "command": "watch-run.unregisterFile",
+                "title": "Unregister File",
+                "category": "watch-run"
             }
         ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "watch-run.registerFile",
+                    "when": "resourceScheme == file",
+                    "group": "watch-run"
+                },
+                {
+                    "command": "watch-run.unregisterFile",
+                    "when": "resourceScheme == file",
+                    "group": "watch-run"
+                }
+            ],
+            "editor/title": [
+                {
+                    "command": "watch-run.runTask",
+                    "when": "editorTextFocus",
+                    "group": "navigation@1"
+                }
+            ]
+        },
         "configuration": [
             {
                 "title": "watch-run",
@@ -94,6 +141,7 @@
     },
     "dependencies": {
         "glob-to-regexp": "^0.4.1",
+        "jsonc-parser": "^3.3.1",
         "mkdirp": "^3.0.1",
         "node-watch": "^0.7.4"
     },

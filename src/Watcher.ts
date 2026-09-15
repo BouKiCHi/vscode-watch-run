@@ -6,7 +6,7 @@ const path = require('path');
 export class Watcher {
 
     private watch: any;
-    private watcher: any;
+    private watchers: any[];
     private targetList: any;
     private glob: any;
     private regexpList: any;
@@ -16,6 +16,7 @@ export class Watcher {
     constructor() {
         this.watch = require('node-watch');
         this.glob = require('glob-to-regexp');
+        this.watchers = [];
         this.taskToFile = {};
     }
 
@@ -43,7 +44,7 @@ export class Watcher {
         var workspaceUri = vscode.Uri.file(workspacePath);
         var wsUriLength = workspaceUri.path.length;
 
-        this.watcher = this.watch(workspacePath, { recursive: true }, function (evt: any, name: any) {
+        const watcher = this.watch(workspacePath, { recursive: true }, function (evt: any, name: any) {
             // console.log("Filename Pattern:" + name);
             var uri = vscode.Uri.file(name);
             var tl = THIS.targetList;
@@ -58,6 +59,7 @@ export class Watcher {
                 vscode.commands.executeCommand("workbench.action.tasks.runTask", task);
             }
         });
+        this.watchers.push(watcher);
     }
 
     public getFilename(taskId : string): string | undefined {
@@ -87,9 +89,13 @@ export class Watcher {
     }
 
     public closeWatch() {
-        if (this.watcher && !this.watcher.isClosed()) {
-            this.watcher.close();
-            this.watcher = null;
+        for (var i = 0; i < this.watchers.length; i++) {
+            var watcher = this.watchers[i];
+            if (watcher && !watcher.isClosed()) {
+                watcher.close();
+            }
         }
+        this.watchers = [];
+        this.taskToFile = {};
     }
 }

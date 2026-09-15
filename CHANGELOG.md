@@ -1,5 +1,13 @@
 # Change Log
 
+### 0.7.0
+* `Run Task` でtaskを手動実行できるようにした。
+* `Edit Task` で定義元のtask設定を開けるようにした。
+* `Add Task` でファイル情報を取得するtaskのひな形を追加できるようにした。
+* Explorerまたはアクティブなエディターからファイルを監視対象に登録、解除できるようにした。
+* マルチルートワークスペースで監視を正しく再読み込みできるようにした。
+* VS Code標準変数とwatch-run固有の入力値をREADMEに整理した。
+
 ### 0.6.4
 * Updated ESLint and TypeScript ESLint dependencies.
 * Removed the obsolete TSLint ignore entry.
